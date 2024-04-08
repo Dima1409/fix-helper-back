@@ -1,4 +1,4 @@
-const { UserSchema } = require("../../models");
+const { UserSchema } = require("../../models/user");
 const { HttpError } = require("../../helpers");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -31,19 +31,19 @@ const register = async (name, password, codePass) => {
   };
 };
 
-const login = async (email, password) => {
-  const user = await UserSchema.findOne({ email });
+const login = async (name, password) => {
+  const user = await UserSchema.findOne({ name });
   if (!user) {
-    throw HttpError(401, "Email or password invalid");
+    throw HttpError(401, "Name or password invalid");
   }
   const passwordCompare = await bcrypt.compare(password, user.password);
   if (!passwordCompare) {
-    throw HttpError(401, "Email or password invalid");
+    throw HttpError(401, "Name or password invalid");
   }
   const payload = {
     id: user._id,
   };
-  const userToken = jwt.sign(payload, SECRET_KEY, { expiresIn: "48h" });
+  const userToken = jwt.sign(payload, SECRET_KEY, { expiresIn: "168h" });
   const loginUser = await UserSchema.findByIdAndUpdate(user._id, {
     token: userToken,
   });
@@ -56,38 +56,6 @@ const login = async (email, password) => {
 const logout = async (id) => {
   const userLogout = await UserSchema.findByIdAndUpdate(id, { token: "" });
   return userLogout;
-};
-
-const updateUserById = async (id, { name, email }) => {
-  const result = UserSchema.findByIdAndUpdate(
-    id,
-    {
-      name,
-      email,
-    },
-    { new: true }
-  );
-  return result;
-};
-
-const updateUserAvatar = async (id, { avatarURL, imgId }) => {
-  const result = UserSchema.findByIdAndUpdate(
-    id,
-    {
-      avatarURL,
-      imgId,
-    },
-    { new: true }
-  );
-  return result;
-};
-
-const deleteImage = async (imgId) => {
-  const result = await cloudinary.api.delete_resources([imgId], {
-    type: "upload",
-    resource_type: "image",
-  });
-  return result;
 };
 
 const refreshUser = async (userId) => {
@@ -106,8 +74,5 @@ module.exports = {
   register,
   login,
   logout,
-  updateUserById,
-  updateUserAvatar,
-  deleteImage,
   refreshUser,
 };
