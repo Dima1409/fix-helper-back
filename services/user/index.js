@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = process.env;
 
-const register = async (name, password, codePass) => {
+const register = async (name, password, codePass, role) => {
   const user = await UserSchema.findOne({ name });
   if (user) {
     throw HttpError(409, `Name "${name}" already in use`);
@@ -15,6 +15,7 @@ const register = async (name, password, codePass) => {
     name,
     password,
     codePass,
+    role,
   });
   const payload = {
     id: newUser._id,
@@ -24,6 +25,7 @@ const register = async (name, password, codePass) => {
     token: userToken,
     password: hashPassword,
     codePass: hashCode,
+    role: role,
   });
   return {
     userToken,

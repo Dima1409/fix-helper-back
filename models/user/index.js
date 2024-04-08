@@ -6,10 +6,13 @@ const {
   codePassPattern,
 } = require("../patterns");
 
+const validRoles = ["admin", "user"];
+
 const joiRegisterSchema = Joi.object({
   name: Joi.string().pattern(namePattern).required(),
   password: Joi.string().pattern(passwordPattern).required(),
   codePass: Joi.string().pattern(codePassPattern).required(),
+  role: Joi.string().valid(...validRoles),
 });
 
 const joiLoginSchema = Joi.object({
@@ -38,6 +41,10 @@ const userSchema = new Schema(
       type: String,
       match: codePassPattern,
       required: [true, "Field is required"],
+    },
+    role: {
+      type: String,
+      enum: validRoles,
     },
     token: {
       type: String,

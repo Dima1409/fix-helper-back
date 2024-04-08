@@ -1,15 +1,27 @@
 const services = require("../../services/user");
-const { HttpError } = require("../../helpers");
 const { schemas } = require("../../models/user/index");
+require("dotenv").config();
+
+const { CODE_PASS_USER, CODE_PASS_ADMIN } = process.env;
 
 const registerUser = async (req, res, next) => {
   const { error } = schemas.joiRegisterSchema.validate(req.body);
   if (error) {
     return res.status(400).json({ message: "Missing fields" });
   }
+
   try {
     const { name, password, codePass } = req.body;
-    const user = await services.register(name, password, codePass);
+    let role;
+    if (codePass === CODE_PASS_USER) {
+      role = "user";
+    } else if (codePass === CODE_PASS_ADMIN) {
+      role = "admin";
+    } else {
+      return res.status(400).json({ message: "Invalid codePass" });
+    }
+
+    const user = await services.register(name, password, codePass, role);
     res.status(201).json({
       status: "success",
       message: "User created",
@@ -21,6 +33,25 @@ const registerUser = async (req, res, next) => {
     console.log(error);
     next(error);
   }
+
+  // try {
+  //   const { name, password, codePass } = req.body;
+  //   if (codePass === CODE_PASS_USER) {
+  //   }
+  //   if (codePass === CODE_PASS_ADMIN) {
+  //   }
+  //   const user = await services.register(name, password, codePass);
+  //   res.status(201).json({
+  //     status: "success",
+  //     message: "User created",
+  //     data: {
+  //       user,
+  //     },
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  //   next(error);
+  // }
 };
 
 const loginUser = async (req, res, next) => {
