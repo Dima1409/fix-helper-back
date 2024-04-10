@@ -33,25 +33,6 @@ const registerUser = async (req, res, next) => {
     console.log(error);
     next(error);
   }
-
-  // try {
-  //   const { name, password, codePass } = req.body;
-  //   if (codePass === CODE_PASS_USER) {
-  //   }
-  //   if (codePass === CODE_PASS_ADMIN) {
-  //   }
-  //   const user = await services.register(name, password, codePass);
-  //   res.status(201).json({
-  //     status: "success",
-  //     message: "User created",
-  //     data: {
-  //       user,
-  //     },
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  //   next(error);
-  // }
 };
 
 const loginUser = async (req, res, next) => {
@@ -60,8 +41,8 @@ const loginUser = async (req, res, next) => {
     return res.status(400).json({ message: "Missing fields" });
   }
   try {
-    const { name, password, codePass } = req.body;
-    const user = await services.login(name, password, codePass);
+    const { name, password } = req.body;
+    const user = await services.login(name, password);
     res.status(200).json({
       status: "success",
       message: "User success login",
@@ -76,7 +57,7 @@ const loginUser = async (req, res, next) => {
 };
 
 const getCurrent = async (req, res) => {
-  const { name, token } = req.user;
+  const { name, token, role } = req.user;
   if (!token) {
     return res.status(401).json({ message: "Not authorized" });
   }
@@ -86,6 +67,7 @@ const getCurrent = async (req, res) => {
     data: {
       name,
       token,
+      role,
     },
   });
 };

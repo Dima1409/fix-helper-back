@@ -3,13 +3,13 @@ const Joi = require("joi");
 const { steeringRackPattern, rackKitPattern } = require("../patterns");
 const validTypes = ["МПК", "ГПК", "ЕПК"];
 
-const joiRackSchema = Joi.object({
+const joiAddRackSchema = Joi.object({
   name: Joi.string().pattern(steeringRackPattern).required(),
   type: Joi.string()
     .valid(...validTypes)
     .required(),
   kit: Joi.string().pattern(rackKitPattern).required(),
-  application: ring().required(),
+  application: Joi.string().required(),
   oem: Joi.string().required(),
   image: Joi.string(),
 });
@@ -23,7 +23,6 @@ const rackSchema = new Schema(
     },
     type: {
       type: String,
-      match: validTypes,
       required: [true, "Field is required"],
     },
     kit: {
@@ -49,6 +48,6 @@ const rackSchema = new Schema(
 const RackSchema = model("rack", rackSchema);
 
 module.exports = {
-  joiRackSchema,
+  joiAddRackSchema,
   RackSchema,
 };
