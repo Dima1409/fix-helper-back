@@ -1,9 +1,11 @@
 const service = require("../../services/rack");
 
 const getByName = async (req, res, next) => {
-  const { name } = req.body;
+  const { name, oem } = req.query;
+  console.log(req.params);
   try {
-    const result = await service.getByName(name);
+    const result = await service.getByName(name, oem);
+    console.log(result);
     res.json({
       status: "success",
       code: 200,
