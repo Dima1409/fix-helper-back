@@ -24,7 +24,18 @@ const joiAddRackSchema = Joi.object({
       )
       .required(),
   }).required(),
-  more: Joi.string().pattern(rackMorePattern).required(),
+  more: Joi.object({
+    name: Joi.string().pattern(rackMorePattern).required(),
+    property: Joi.array()
+      .items(
+        Joi.object({
+          art: Joi.string().required(),
+          quantity: Joi.string().required(),
+          description: Joi.string(),
+        })
+      )
+      .required(),
+  }).required(),
   application: Joi.string().required(),
   oem: Joi.string().required(),
   image: Joi.string(),
@@ -64,9 +75,26 @@ const rackSchema = new Schema(
       ],
     },
     more: {
-      type: String,
-      match: rackMorePattern,
-      required: [true, "Field is required"],
+      name: {
+        type: String,
+        match: rackMorePattern,
+        required: [true, "Field is required"],
+      },
+      property: [
+        {
+          art: {
+            type: String,
+            required: [true, "Field is required"],
+          },
+          quantity: {
+            type: String,
+            required: [true, "Field is required"],
+          },
+          description: {
+            type: String,
+          },
+        },
+      ],
     },
     application: {
       type: String,
