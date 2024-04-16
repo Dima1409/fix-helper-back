@@ -29,26 +29,7 @@ const getByName = async (name, oem) => {
   return rack;
 };
 
-// const getByName = async (name, oem) => {
-//   if (!name && !oem) {
-//     throw new Error("Name or OEM must be provided");
-//   }
-//   let rack;
-//   if (name) {
-//     rack = await RackSchema.findOne({ name: name });
-//     if (!rack) {
-//       throw new Error(`Rack with name: ${name} not found`);
-//     }
-//   } else {
-//     rack = await RackSchema.findOne({ oem: oem });
-//     if (!rack) {
-//       throw new Error(`Rack with OEM: ${oem} not found`);
-//     }
-//   }
-//   return rack;
-// };
-
-const createNewRack = async (name, type, kit, application, oem) => {
+const createNewRack = async (name, type, kit, more, application, oem) => {
   const existingRack = await RackSchema.findOne({ name: name });
   if (existingRack) {
     throw new Error(`Rack ${name} already exists`);
@@ -57,6 +38,7 @@ const createNewRack = async (name, type, kit, application, oem) => {
     name,
     type,
     kit,
+    more,
     application,
     oem,
   });

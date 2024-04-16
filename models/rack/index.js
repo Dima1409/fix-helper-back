@@ -1,6 +1,10 @@
 const { model, Schema } = require("mongoose");
 const Joi = require("joi");
-const { steeringRackPattern, rackKitPattern } = require("../patterns");
+const {
+  steeringRackPattern,
+  rackKitPattern,
+  rackMorePattern,
+} = require("../patterns");
 const validTypes = ["МПК", "ГПК", "ЕПК"];
 
 const joiAddRackSchema = Joi.object({
@@ -8,7 +12,19 @@ const joiAddRackSchema = Joi.object({
   type: Joi.string()
     .valid(...validTypes)
     .required(),
-  kit: Joi.string().pattern(rackKitPattern).required(),
+  kit: Joi.object({
+    name: Joi.string().pattern(rackKitPattern).required(),
+    property: Joi.array()
+      .items(
+        Joi.object({
+          art: Joi.string().required(),
+          quantity: Joi.string().required(),
+          description: Joi.string(),
+        })
+      )
+      .required(),
+  }).required(),
+  more: Joi.string().pattern(rackMorePattern).required(),
   application: Joi.string().required(),
   oem: Joi.string().required(),
   image: Joi.string(),
@@ -26,8 +42,30 @@ const rackSchema = new Schema(
       required: [true, "Field is required"],
     },
     kit: {
+      name: {
+        type: String,
+        match: rackKitPattern,
+        required: [true, "Field is required"],
+      },
+      property: [
+        {
+          art: {
+            type: String,
+            required: [true, "Field is required"],
+          },
+          quantity: {
+            type: String,
+            required: [true, "Field is required"],
+          },
+          description: {
+            type: String,
+          },
+        },
+      ],
+    },
+    more: {
       type: String,
-      match: rackKitPattern,
+      match: rackMorePattern,
       required: [true, "Field is required"],
     },
     application: {

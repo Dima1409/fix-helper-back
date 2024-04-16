@@ -7,11 +7,12 @@ const createNew = async (req, res, next) => {
     return res.status(400).json({ message: "Missing fields" });
   }
   try {
-    const { name, type, kit, application, oem } = req.body;
+    const { name, type, kit, more, application, oem } = req.body;
     const result = await service.createNewRack(
       name,
       type,
       kit,
+      more,
       application,
       oem
     );
