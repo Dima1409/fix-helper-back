@@ -1,7 +1,7 @@
 const { RackSchema, joiAddRackSchema } = require("../../models/rack");
 
 const getAllRacks = async () => {
-  let result = await RackSchema.find({});
+  let result = await RackSchema.find({}).sort({ name: 1 });
   return result;
 };
 
