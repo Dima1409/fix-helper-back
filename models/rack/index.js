@@ -4,6 +4,11 @@ const {
   steeringRackPattern,
   rackKitPattern,
   rackMorePattern,
+  artPattern,
+  quantityPattern,
+  commentPattern,
+  applicationPattern,
+  oemPattern,
 } = require("../patterns");
 const validTypes = ["МПК", "ГПК", "ЕПК"];
 
@@ -17,9 +22,9 @@ const joiAddRackSchema = Joi.object({
     property: Joi.array()
       .items(
         Joi.object({
-          art: Joi.string().required(),
-          quantity: Joi.string().required(),
-          description: Joi.string(),
+          art: Joi.string().pattern(artPattern).required(),
+          quantity: Joi.string().pattern(quantityPattern).required(),
+          description: Joi.string().pattern(commentPattern).required(),
         })
       )
       .required(),
@@ -29,15 +34,15 @@ const joiAddRackSchema = Joi.object({
     property: Joi.array()
       .items(
         Joi.object({
-          art: Joi.string().required(),
-          quantity: Joi.string().required(),
-          description: Joi.string(),
+          art: Joi.string().pattern(artPattern).required(),
+          quantity: Joi.string().pattern(quantityPattern).required(),
+          description: Joi.string().pattern(commentPattern).required(),
         })
       )
       .required(),
   }).required(),
-  application: Joi.string().required(),
-  oem: Joi.string().required(),
+  application: Joi.string().pattern(applicationPattern).required(),
+  oem: Joi.string().pattern(oemPattern).required(),
   image: Joi.string(),
 });
 
