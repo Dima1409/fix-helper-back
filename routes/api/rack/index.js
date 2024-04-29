@@ -13,6 +13,8 @@ rackRouter.get("/getByName", isAuth, ctrlWrapper(racks.getByName));
 
 rackRouter.get("/getAll", isAuth, ctrlWrapper(racks.getAll));
 
+rackRouter.get("/getById/:id", isAuth, ctrlWrapper(racks.getById));
+
 rackRouter.post(
   "/new",
   isAuth,

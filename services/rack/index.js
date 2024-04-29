@@ -45,6 +45,14 @@ const createNewRack = async (name, type, kit, more, application, oem) => {
   return newRack;
 };
 
+const getById = async (id) => {
+  const rack = await RackSchema.findById(id);
+  if (!rack) {
+    throw new Error(`Rack with id: ${id} not found`);
+  }
+  return rack;
+};
+
 const deleteRack = async (id) => {
   const rack = await RackSchema.findByIdAndRemove(id);
   if (!rack) {
@@ -58,4 +66,5 @@ module.exports = {
   getByName,
   createNewRack,
   deleteRack,
+  getById,
 };
