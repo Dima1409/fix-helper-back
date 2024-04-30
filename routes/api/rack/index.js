@@ -22,6 +22,13 @@ rackRouter.post(
   ctrlWrapper(racks.createNew)
 );
 
+rackRouter.patch(
+  "/edit/:id",
+  isAuth,
+  validation(joiAddRackSchema),
+  ctrlWrapper(racks.updateRack)
+);
+
 rackRouter.delete("/:id", isAuth, isValidId, ctrlWrapper(racks.deleteRack));
 
 module.exports = {

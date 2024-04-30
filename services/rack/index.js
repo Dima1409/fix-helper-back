@@ -45,6 +45,30 @@ const createNewRack = async (name, type, kit, more, application, oem) => {
   return newRack;
 };
 
+const editRack = async (id, name, type, kit, more, application, oem) => {
+  const existingRack = await RackSchema.findOne({ _id: id });
+  if (!existingRack) {
+    throw new Error(`Rack ${_id} not found`);
+  }
+
+  const updates = {};
+  if (name) updates.name = name;
+  if (type) updates.type = type;
+  if (kit) updates.kit = kit;
+  if (more) updates.more = more;
+  if (application) updates.application = application;
+  if (oem) updates.oem = oem;
+
+  if (Object.keys(updates).length === 0) {
+    return existingRack;
+  }
+
+  const updateRack = await RackSchema.findOneAndUpdate({ _id: id }, updates, {
+    new: true,
+  });
+  return updateRack;
+};
+
 const getById = async (id) => {
   const rack = await RackSchema.findById(id);
   if (!rack) {
@@ -67,4 +91,5 @@ module.exports = {
   createNewRack,
   deleteRack,
   getById,
+  editRack,
 };
