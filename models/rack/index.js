@@ -13,6 +13,7 @@ const {
 const validTypes = ["МПК", "ГПК", "ЕПК"];
 
 const joiAddRackSchema = Joi.object({
+  id: Joi.string(),
   name: Joi.string().pattern(steeringRackPattern).required(),
   type: Joi.string()
     .valid(...validTypes)
@@ -22,6 +23,7 @@ const joiAddRackSchema = Joi.object({
     property: Joi.array()
       .items(
         Joi.object({
+          _id: Joi.string(),
           art: Joi.string().pattern(artPattern).required(),
           quantity: Joi.string().pattern(quantityPattern).required(),
           description: Joi.string().pattern(commentPattern).required(),
@@ -34,6 +36,7 @@ const joiAddRackSchema = Joi.object({
     property: Joi.array()
       .items(
         Joi.object({
+          _id: Joi.string(),
           art: Joi.string().pattern(artPattern).required(),
           quantity: Joi.string().pattern(quantityPattern).required(),
           description: Joi.string().pattern(commentPattern).required(),
@@ -44,10 +47,15 @@ const joiAddRackSchema = Joi.object({
   application: Joi.string().pattern(applicationPattern).required(),
   oem: Joi.string().pattern(oemPattern).required(),
   image: Joi.string(),
+  createdAt: Joi.string(),
+  updatedAt: Joi.string(),
 });
 
 const rackSchema = new Schema(
   {
+    id: {
+      type: String,
+    },
     name: {
       type: String,
       required: [true, "Field is required"],
@@ -65,6 +73,9 @@ const rackSchema = new Schema(
       },
       property: [
         {
+          _id: {
+            type: String,
+          },
           art: {
             type: String,
             required: [true, "Field is required"],
@@ -87,6 +98,9 @@ const rackSchema = new Schema(
       },
       property: [
         {
+          _id: {
+            type: String,
+          },
           art: {
             type: String,
             required: [true, "Field is required"],
@@ -110,6 +124,12 @@ const rackSchema = new Schema(
       required: [true, "Field is required"],
     },
     image: {
+      type: String,
+    },
+    createdAt: {
+      type: String,
+    },
+    updatedAt: {
       type: String,
     },
   },
