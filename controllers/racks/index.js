@@ -4,6 +4,7 @@ const { deleteRack } = require("./delete");
 const { getByName } = require("./getByName");
 const { getById } = require("./getById");
 const { updateRack } = require("./editRack");
+const { addImage } = require("./addImage");
 
 module.exports = {
   getAll,
@@ -12,4 +13,5 @@ module.exports = {
   getByName,
   getById,
   updateRack,
+  addImage,
 };

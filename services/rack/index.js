@@ -77,6 +77,18 @@ const getById = async (id) => {
   return rack;
 };
 
+const addRackImage = async (id, { avatarURL, imgId }) => {
+  const result = RackSchema.findByIdAndUpdate(
+    id,
+    {
+      avatarURL,
+      imgId,
+    },
+    { new: true }
+  );
+  return result;
+};
+
 const deleteRack = async (id) => {
   const rack = await RackSchema.findByIdAndRemove(id);
   if (!rack) {
@@ -92,4 +104,5 @@ module.exports = {
   deleteRack,
   getById,
   editRack,
+  addRackImage,
 };
