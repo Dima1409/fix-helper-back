@@ -46,7 +46,10 @@ const joiAddRackSchema = Joi.object({
   }).required(),
   application: Joi.string().pattern(applicationPattern).required(),
   oem: Joi.string().pattern(oemPattern).required(),
-  image: Joi.string(),
+  mainImage: Joi.string(),
+  mainImageId: Joi.string(),
+  mainImageCenter: Joi.string(),
+  mainImageCenterId: Joi.string(),
   createdAt: Joi.string(),
   updatedAt: Joi.string(),
 });
@@ -123,7 +126,19 @@ const rackSchema = new Schema(
       type: String,
       required: [true, "Field is required"],
     },
-    image: {
+    mainImage: {
+      type: String,
+      default: "",
+    },
+    mainImageId: {
+      type: String,
+      default: "",
+    },
+    mainImageCenter: {
+      type: String,
+      default: "",
+    },
+    mainImageCenterId: {
       type: String,
       default: "",
     },

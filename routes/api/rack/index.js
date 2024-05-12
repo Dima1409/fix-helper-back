@@ -31,9 +31,9 @@ rackRouter.patch(
 );
 
 rackRouter.patch(
-  "/addPhoto",
+  "/mainPhoto/:id",
   isAuth,
-  uploadPhoto.single("avatarURL"),
+  uploadPhoto.single("mainImage"),
   ctrlWrapper(racks.addImage)
 );
 

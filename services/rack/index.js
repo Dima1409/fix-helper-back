@@ -1,4 +1,5 @@
 const { RackSchema, joiAddRackSchema } = require("../../models/rack");
+const cloudinary = require("cloudinary").v2;
 
 const getAllRacks = async () => {
   let result = await RackSchema.find({}).sort({ name: 1 });
@@ -77,15 +78,25 @@ const getById = async (id) => {
   return rack;
 };
 
-const addRackImage = async (id, { avatarURL, imgId }) => {
+const addRackImage = async (id, { mainImage, mainImageId }) => {
+  console.log("main image in service", mainImage);
+  console.log("image id in service", mainImageId);
   const result = RackSchema.findByIdAndUpdate(
     id,
     {
-      avatarURL,
-      imgId,
+      mainImage,
+      mainImageId,
     },
     { new: true }
   );
+  return result;
+};
+
+const deleteImage = async (imgId) => {
+  const result = await cloudinary.api.delete_resources([imgId], {
+    type: "upload",
+    resource_type: "image",
+  });
   return result;
 };
 
@@ -105,4 +116,5 @@ module.exports = {
   getById,
   editRack,
   addRackImage,
+  deleteImage,
 };
