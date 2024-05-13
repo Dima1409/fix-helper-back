@@ -50,6 +50,7 @@ const joiAddRackSchema = Joi.object({
   mainImageId: Joi.string(),
   mainImageCenter: Joi.string(),
   mainImageCenterId: Joi.string(),
+  imgFile: Joi.object(),
   createdAt: Joi.string(),
   updatedAt: Joi.string(),
 });
@@ -128,19 +129,18 @@ const rackSchema = new Schema(
     },
     mainImage: {
       type: String,
-      default: "",
     },
     mainImageId: {
       type: String,
-      default: "",
     },
     mainImageCenter: {
       type: String,
-      default: "",
     },
     mainImageCenterId: {
       type: String,
-      default: "",
+    },
+    imgFile: {
+      type: Object,
     },
     createdAt: {
       type: String,

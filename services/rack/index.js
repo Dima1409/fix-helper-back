@@ -79,8 +79,6 @@ const getById = async (id) => {
 };
 
 const addRackImage = async (id, { mainImage, mainImageId }) => {
-  console.log("main image in service", mainImage);
-  console.log("image id in service", mainImageId);
   const result = RackSchema.findByIdAndUpdate(
     id,
     {
