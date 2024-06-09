@@ -5,6 +5,7 @@ const { getByName } = require("./getByName");
 const { getById } = require("./getById");
 const { updateRack } = require("./editRack");
 const { addImage } = require("./addImage");
+const { addCenterImage } = require("./addCenterImage");
 
 module.exports = {
   getAll,
@@ -14,4 +15,5 @@ module.exports = {
   getById,
   updateRack,
   addImage,
+  addCenterImage,
 };

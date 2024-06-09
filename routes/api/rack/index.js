@@ -37,6 +37,13 @@ rackRouter.patch(
   ctrlWrapper(racks.addImage)
 );
 
+rackRouter.patch(
+  "/centerPhoto/:id",
+  isAuth,
+  uploadPhoto.single("mainCenterImage"),
+  ctrlWrapper(racks.addCenterImage)
+);
+
 rackRouter.delete("/:id", isAuth, isValidId, ctrlWrapper(racks.deleteRack));
 
 module.exports = {

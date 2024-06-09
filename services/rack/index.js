@@ -90,6 +90,21 @@ const addRackImage = async (id, { mainImage, mainImageId }) => {
   return result;
 };
 
+const addRackCenterImage = async (
+  id,
+  { mainCenterImage, mainCenterImageId }
+) => {
+  const result = RackSchema.findByIdAndUpdate(
+    id,
+    {
+      mainCenterImage,
+      mainCenterImageId,
+    },
+    { new: true }
+  );
+  return result;
+};
+
 const deleteImage = async (imgId) => {
   const result = await cloudinary.api.delete_resources([imgId], {
     type: "upload",
@@ -114,5 +129,6 @@ module.exports = {
   getById,
   editRack,
   addRackImage,
+  addRackCenterImage,
   deleteImage,
 };
