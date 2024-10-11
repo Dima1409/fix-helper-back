@@ -9,7 +9,7 @@ const {
   commentPattern,
   applicationPattern,
   oemPattern,
-} = require("../patterns");
+} = require("../patterns/rack-patterns");
 const validTypes = ["МПК", "ГПК", "ЕПК"];
 
 const joiAddRackSchema = Joi.object({

@@ -1,4 +1,4 @@
-const service = require("../../services/rack");
+const service = require("../../services/stuffingBox");
 
 const getByName = async (req, res, next) => {
     const {name, oem} = req.query;

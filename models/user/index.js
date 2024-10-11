@@ -4,7 +4,7 @@ const {
   passwordPattern,
   namePattern,
   codePassPattern,
-} = require("../patterns");
+} = require("../patterns/rack-patterns");
 
 const validRoles = ["admin", "user"];
 

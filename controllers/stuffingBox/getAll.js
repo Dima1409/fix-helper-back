@@ -1,9 +1,8 @@
-const service = require("../../services/rack");
+const service = require("../../services/stuffingBox");
 
-const getByName = async (req, res, next) => {
-    const {name, oem} = req.query;
+const getAll = async (req, res, next) => {
     try {
-        const result = await service.getByName(name, oem);
+        const result = await service.getAll();
         res.json({
             status: "success",
             code: 200,
@@ -18,5 +17,5 @@ const getByName = async (req, res, next) => {
 };
 
 module.exports = {
-    getByName,
+    getAll,
 };
