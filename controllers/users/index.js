@@ -68,6 +68,7 @@ const getCurrent = async (req, res) => {
       name,
       token,
       role,
+      isLoggedIn: true
     },
   });
 };
