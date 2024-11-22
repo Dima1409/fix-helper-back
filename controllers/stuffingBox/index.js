@@ -4,6 +4,7 @@ const {updateStuff} = require('./edit')
 const {getAll} = require('./getAll')
 const {getById} = require('./getById')
 const {getByName} = require('./getByName')
+const {getAnalogs} = require('./getAnalogs')
 
 module.exports = {
     createNew,
@@ -11,5 +12,6 @@ module.exports = {
     updateStuff,
     getAll,
     getById,
-    getByName
+    getByName,
+    getAnalogs
 }

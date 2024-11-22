@@ -5,7 +5,7 @@ const {
     isAuth,
     isValidId,
 } = require("../../../middlewares");
-const {stuffingBoxes, racks} = require("../../../controllers");
+const {stuffingBoxes} = require("../../../controllers");
 const {joiAddStuffingBoxSchema} = require("../../../models/stuffing-box");
 const stuffRouter = express.Router();
 
@@ -28,6 +28,8 @@ stuffRouter.get("/getAll", isAuth, ctrlWrapper(stuffingBoxes.getAll));
 stuffRouter.get("/getByName", isAuth, ctrlWrapper(stuffingBoxes.getByName));
 
 stuffRouter.get("/getById/:id", isAuth, ctrlWrapper(stuffingBoxes.getById));
+
+stuffRouter.get('/getAnalogs', isAuth, ctrlWrapper(stuffingBoxes.getAnalogs));
 
 stuffRouter.delete("/:id", isAuth, isValidId, ctrlWrapper(stuffingBoxes.deleteStuff));
 

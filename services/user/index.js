@@ -20,7 +20,7 @@ const register = async (name, password, codePass, role) => {
   const payload = {
     id: newUser._id,
   };
-  const userToken = jwt.sign(payload, SECRET_KEY, { expiresIn: "168h" });
+  const userToken = jwt.sign(payload, SECRET_KEY, { expiresIn: "14d" });
   const loginUser = await UserSchema.findByIdAndUpdate(newUser._id, {
     token: userToken,
     password: hashPassword,
