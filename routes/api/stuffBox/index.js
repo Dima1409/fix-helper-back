@@ -29,8 +29,6 @@ stuffRouter.get("/getByName", isAuth, ctrlWrapper(stuffingBoxes.getByName));
 
 stuffRouter.get("/getById/:id", isAuth, ctrlWrapper(stuffingBoxes.getById));
 
-stuffRouter.get('/getAnalogs', isAuth, ctrlWrapper(stuffingBoxes.getAnalogs));
-
 stuffRouter.delete("/:id", isAuth, isValidId, ctrlWrapper(stuffingBoxes.deleteStuff));
 
 module.exports = {

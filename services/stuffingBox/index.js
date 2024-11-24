@@ -15,14 +15,7 @@ const getByName = async (name) => {
         throw new Error("Element not found");
     }
 
-    return result;
-};
-
-const getAnalogs = async (name) => {
-    const element = await getByName(name);
     const elements = await getAll();
-    console.log("elements", elements);
-    console.log('element', element);
 
     const tolerance = 0.3;
     const toleranceH = 2.2;
@@ -40,17 +33,14 @@ const getAnalogs = async (name) => {
         );
     };
 
-    const analogs = [];
+    const analogs = elements
+        .filter((el) => areAnalogs(result, el) && String(result._id) !== String(el._id))
+        .map((el) => ({ name: el.name, type: el.type }));
 
-    elements.forEach((el) => {
-        if (areAnalogs(element, el) && element._id !== el._id) {
-            analogs.push(el);
-        }
-    });
-
-    console.log(analogs)
-
-    return analogs;
+    return {
+        ...result.toObject(),
+        analogs,
+    };
 };
 
 const createNew = async (name, type, position, d1, d2, D, h1, H) => {
@@ -118,5 +108,4 @@ module.exports = {
     edit,
     getById,
     deleteElement,
-    getAnalogs
 }

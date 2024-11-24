@@ -12,6 +12,7 @@ const joiAddStuffingBoxSchema = Joi.object({
     D: Joi.string().pattern(diameterP).required(),
     h1: Joi.string().pattern(heightP),
     H: Joi.string().pattern(heightP).required(),
+    analogs: Joi.array().items(Joi.string()),
     mainImage: Joi.string(),
     mainImageId: Joi.string(),
     imgFile: Joi.object(),
@@ -60,6 +61,9 @@ const stuffingBox = new Schema(
             type: String,
             required: [true, "Field is required"],
             match: heightP
+        },
+        analogs: {
+            type: [String],
         },
         mainImage: {
             type: String,

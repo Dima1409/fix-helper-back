@@ -4,6 +4,7 @@ const getByName = async (req, res, next) => {
     const {name, oem} = req.query;
     try {
         const result = await service.getByName(name, oem);
+        console.log(result, 'result');
         res.json({
             status: "success",
             code: 200,
