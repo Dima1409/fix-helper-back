@@ -18,19 +18,26 @@ const getByName = async (name) => {
     const elements = await getAll();
 
     const tolerance = 0.3;
-    const toleranceH = 2.2;
+    const toleranceH = 2.0;
+    const toleranceH1 = 1.5;
+
 
     const areAnalogs = (element1, element2) => {
-        const isWithinTolerance = (value1, value2) =>
-            Math.abs(parseFloat(value1) - parseFloat(value2)) <= tolerance;
-        const isWithinToleranceH = (value1, value2) =>
-            Math.abs(parseFloat(value1) - parseFloat(value2)) <= toleranceH;
+        const isWithinTolerance = (value1, value2, tolerance) => {
+            if (value1 == null || value2 == null) return true;
+            return Math.abs(parseFloat(value1) - parseFloat(value2)) <= tolerance;
+        };
 
-        return (
-            isWithinTolerance(element1.d1, element2.d1) &&
-            isWithinTolerance(element1.D, element2.D) &&
-            isWithinToleranceH(element1.H, element2.H)
-        );
+        const mandatoryMatch =
+            isWithinTolerance(element1.d1, element2.d1, tolerance) &&
+            isWithinTolerance(element1.D, element2.D, tolerance) &&
+            isWithinTolerance(element1.H, element2.H, toleranceH);
+
+        const optionalMatch =
+            isWithinTolerance(element1.d2, element2.d2, tolerance) &&
+            isWithinTolerance(element1.h1, element2.h1, toleranceH1);
+
+        return mandatoryMatch && optionalMatch;
     };
 
     const analogs = elements
