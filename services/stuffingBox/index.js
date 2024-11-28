@@ -42,7 +42,7 @@ const getByName = async (name) => {
 
     const analogs = elements
         .filter((el) => areAnalogs(result, el) && String(result._id) !== String(el._id))
-        .map((el) => ({ name: el.name, type: el.type }));
+        .map((el) => ({ name: el.name, type: el.type, d1: el.d1, d2: el.d2, D: el.D, h1: el.h1, H: el.H }));
 
     return {
         ...result.toObject(),
