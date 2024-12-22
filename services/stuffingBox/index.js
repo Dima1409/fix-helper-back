@@ -100,6 +100,38 @@ const getById = async (id) => {
     return element;
 };
 
+const getByParameters = async (params, ranges = {}) => {
+    const filter = {};
+
+    for (const key in params) {
+        if (params[key] !== undefined && params[key] !== null) {
+            const value = params[key];
+            const rangeKey = `range_${key}`;
+            const range = ranges[rangeKey] !== undefined ? ranges[rangeKey] : 0;
+
+            if (typeof value === "number") {
+                filter[key] = { $gte: value - range, $lte: value + range };
+            } else {
+                filter[key] = value;
+            }
+        }
+    }
+
+    if (Object.keys(filter).length === 0) {
+        throw new Error("No parameters provided for the search");
+    }
+
+    const elements = await StuffingBoxSchema.find(filter);
+
+    if (!elements || elements.length === 0) {
+        throw new Error("No elements found matching the parameters");
+    }
+
+    return elements;
+};
+
+
+
 const deleteElement = async (id) => {
     const element = await StuffingBoxSchema.findByIdAndRemove(id);
     if (!element) {
@@ -115,4 +147,5 @@ module.exports = {
     edit,
     getById,
     deleteElement,
+    getByParameters
 }
