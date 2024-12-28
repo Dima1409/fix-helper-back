@@ -17,7 +17,7 @@ const getByName = async (name) => {
 
     const elements = await getAll();
 
-    const tolerance = 0.3;
+    const tolerance = 0.4;
     const toleranceH = 2.0;
     const toleranceH1 = 1.5;
 
