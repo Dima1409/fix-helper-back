@@ -6,6 +6,7 @@ const { getById } = require("./getById");
 const { updateRack } = require("./editRack");
 const { addImage } = require("./addImage");
 const { addCenterImage } = require("./addCenterImage");
+const { getByApplication } = require("./getByApplication");
 
 module.exports = {
   getAll,
@@ -16,4 +17,5 @@ module.exports = {
   updateRack,
   addImage,
   addCenterImage,
+  getByApplication
 };
